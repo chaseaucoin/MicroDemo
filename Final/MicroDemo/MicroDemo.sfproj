@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\BuildTools\Microsoft.VisualStudio.Azure.Fabric.ApplicationProject.props" />
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>205a8fc1-e640-478c-af4e-1e59593d304e</ProjectGuid>
+    <ProjectVersion>1.0</ProjectVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="ApplicationPackageRoot\ApplicationManifest.xml" />
+    <None Include="ApplicationParameters\Cloud.xml" />
+    <None Include="ApplicationParameters\Local.xml" />
+    <None Include="PublishProfiles\Cloud.xml" />
+    <None Include="PublishProfiles\Local.xml" />
+    <None Include="Scripts\Deploy-FabricApplication.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CacheService\CacheService.csproj" />
+    <ProjectReference Include="..\CustomerService\CustomerService.csproj" />
+    <ProjectReference Include="..\InvoiceService\InvoiceService.csproj" />
+    <ProjectReference Include="..\Keyhole.Project.Counter\CounterService.csproj" />
+    <ProjectReference Include="..\MicroDemo.Host\MicroDemo.Host.csproj" />
+  </ItemGroup>
+  <Import Project="..\BuildTools\Microsoft.VisualStudio.Azure.Fabric.ApplicationProject.targets" />
+</Project>

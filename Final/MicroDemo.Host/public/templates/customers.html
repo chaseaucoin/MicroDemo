@@ -1,0 +1,50 @@
+<div class="row" ng-controller="CustomerListCtrl">
+    <div class="col-lg-6">
+        <rd-widget>
+            <rd-widget-header icon="fa-users" title="Customers">                
+                <div class="pull-right"><button class="btn btn-sm btn-info" ng-click="clickAddCustomer()">Add Customer</button></div>
+            </rd-widget-header>
+            <rd-widget-body classes="medium no-padding">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr class="clickableRow noselect" ng-repeat="customer in customerList" ng-click="clickCustomer(customer.Id)">
+                                <td>{{customer.Id}}</td>
+                                <td>{{customer.FirstName}}</td>
+                                <td>{{customer.LastName}}</td>
+                                <td>{{customer.Age}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </rd-widget-body>
+            <rd-widget-footer>
+                <ul class="pagination pagination-sm pull-right"></ul>
+                <div class="clearfix"></div>
+            </rd-widget-footer>
+        </rd-widget>
+    </div>
+    <div class="col-lg-6">
+        <rd-widget>
+            <rd-widget-header icon="fa-dollar" title="Invoices">
+                <div class="pull-right"><button class="btn btn-sm btn-info" ng-show="isCustomerSelected" ng-click="clickAddInvoice()">Add Invoice</button></div>
+            </rd-widget-header>
+            <rd-widget-body classes="medium no-padding">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr class="clickableRow noselect" ng-repeat="invoice in invoiceList" ng-click="clickInvoice(invoice.Id)">
+                                <td>{{invoice.Id}}</td>
+                                <td>{{invoice.InvoiceTotal | currency}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </rd-widget-body>
+            <rd-widget-footer>
+                <ul class="pagination pagination-sm pull-right"></ul>
+                <div class="clearfix"></div>
+            </rd-widget-footer>
+        </rd-widget>
+    </div>
+</div>

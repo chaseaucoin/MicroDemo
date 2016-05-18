@@ -1,0 +1,62 @@
+<div class="row" ng-controller="EditInvoiceCtrl">
+    <div class="col-lg-6">
+        <rd-widget>
+            <rd-widget-header icon="fa-dollar" title="Invoice Items">                                
+                Invoice: {{invoiceId}} Total: {{total() | currency}}
+            </rd-widget-header>
+            <rd-widget-body classes="medium no-padding">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>LineTotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="clickableRow noselect" ng-repeat="item in invoice.Items">
+                                <td>{{item.Name}}</td>
+                                <td>{{item.Quantity}}</td>
+                                <td>{{item.Price | currency}}</td>
+                                <td>{{item.LineTotal | currency}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </rd-widget-body>
+            <rd-widget-footer>
+                <div class="pull-right"><button class="btn btn-sm btn-info" ng-click="updateInvoice()">Save Invoice</button></div>
+            </rd-widget-footer>
+        </rd-widget>
+    </div>
+
+    <div class="col-lg-6">
+        <rd-widget>
+            <rd-widget-header icon="fa-dollar" title="Add Item">                
+            </rd-widget-header>
+            <rd-widget-body classes="large">
+                <form ng-submit="addItem()">
+                    <fieldset class="form-group">
+                        <label>Name:</label>
+                        <input type="text" class="form-control" ng-model="newItem.Name" placeholder="Name" ng-required />
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Quantity:</label>
+                        <input type="text" class="form-control" ng-model="newItem.Quantity" placeholder="Quantity" ng-required />
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Price:</label>
+                        <input type="text" class="form-control" ng-model="newItem.Price" placeholder="Price" ng-required />
+                    </fieldset>
+                    <button class="btn" type="submit">Add Item</button>
+                </form>
+            </rd-widget-body>
+            <rd-widget-footer>
+                <ul class="pagination pagination-sm pull-right"></ul>
+                <div class="clearfix"></div>
+            </rd-widget-footer>
+        </rd-widget>
+    </div>
+</div>

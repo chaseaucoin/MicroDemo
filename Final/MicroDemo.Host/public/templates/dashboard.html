@@ -1,0 +1,46 @@
+<div class="row">
+	<div class="noselect col-lg-3 col-md-6 col-xs-12" ng-controller="CountCtrl">
+		<rd-widget ng-click="increment()">
+			<rd-widget-body>
+				<div class="widget-icon orange  pull-left">
+					<i class="fa fa-cogs"></i>
+				</div>
+				<div class="title clickValue">Clicks: {{clickStats.ClickCount}}</div>
+				<div class="comment">Host:{{clickStats.ServedBy}}</div>
+			</rd-widget-body>
+		</rd-widget>
+	</div>
+    <div class="noselect col-lg-3 col-md-6 col-xs-12" ng-controller="CustomerStatsCtrl">
+        <rd-widget ng-click="openCustomers()">
+            <rd-widget-body>
+                <div class="widget-icon blue pull-left">
+                    <i class="fa fa-users"></i>
+                </div>
+                <div class="title clickValue">Customers: {{customerStats.CustomerCount}}</div>
+                <div class="comment">Open customers</div>
+            </rd-widget-body>
+        </rd-widget>
+    </div>
+    <div class="noselect col-lg-3 col-md-6 col-xs-12" ng-controller="InvoiceStatsCtrl">
+        <rd-widget>
+            <rd-widget-body>
+                <div class="widget-icon green pull-left">
+                    <i class="fa fa-dollar "></i>
+                </div>
+                <div class="title clickValue">Sales: {{invoiceStats.TotalVolume | currency}}</div>                
+                <div class="comment">Total of all invoices</div>
+            </rd-widget-body>
+        </rd-widget>
+    </div>
+    <div class="noselect col-lg-3 col-md-6 col-xs-12" ng-controller="CacheDashCtrl">
+        <rd-widget ng-click="openCache()">
+            <rd-widget-body>
+                <div class="widget-icon red pull-left">
+                    <i class="fa fa-database"></i>
+                </div>
+                <div class="title clickValue">Cache</div>
+                <div class="comment">Open Cache Demo</div>
+            </rd-widget-body>
+        </rd-widget>
+    </div>
+</div>

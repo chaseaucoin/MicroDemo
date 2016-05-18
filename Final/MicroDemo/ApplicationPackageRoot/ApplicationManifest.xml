@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="MicroDemoType" ApplicationTypeVersion="1.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+   <Parameters>
+      <Parameter Name="CacheService_MinReplicaSetSize" DefaultValue="2" />
+      <Parameter Name="CacheService_PartitionCount" DefaultValue="1" />
+      <Parameter Name="CacheService_TargetReplicaSetSize" DefaultValue="3" />
+      <Parameter Name="InvoiceService_MinReplicaSetSize" DefaultValue="2" />
+      <Parameter Name="InvoiceService_PartitionCount" DefaultValue="1" />
+      <Parameter Name="InvoiceService_TargetReplicaSetSize" DefaultValue="3" />
+      <Parameter Name="CustomerService_MinReplicaSetSize" DefaultValue="2" />
+      <Parameter Name="CustomerService_PartitionCount" DefaultValue="1" />
+      <Parameter Name="CustomerService_TargetReplicaSetSize" DefaultValue="3" />
+      <Parameter Name="Counter_MinReplicaSetSize" DefaultValue="2" />
+      <Parameter Name="Counter_PartitionCount" DefaultValue="1" />
+      <Parameter Name="Counter_TargetReplicaSetSize" DefaultValue="3" />
+      <Parameter Name="Host_InstanceCount" DefaultValue="-1" />
+   </Parameters>
+   <ServiceManifestImport>
+      <ServiceManifestRef ServiceManifestName="CacheServicePkg" ServiceManifestVersion="1.0.0" />
+      <ConfigOverrides />
+   </ServiceManifestImport>
+   <ServiceManifestImport>
+      <ServiceManifestRef ServiceManifestName="InvoiceServicePkg" ServiceManifestVersion="1.0.0" />
+      <ConfigOverrides />
+   </ServiceManifestImport>
+   <ServiceManifestImport>
+      <ServiceManifestRef ServiceManifestName="CustomerServicePkg" ServiceManifestVersion="1.0.0" />
+      <ConfigOverrides />
+   </ServiceManifestImport>
+   <ServiceManifestImport>
+      <ServiceManifestRef ServiceManifestName="Keyhole.Project.CounterPkg" ServiceManifestVersion="1.0.0" />
+      <ConfigOverrides />
+   </ServiceManifestImport>
+   <ServiceManifestImport>
+      <ServiceManifestRef ServiceManifestName="MicroDemo.HostPkg" ServiceManifestVersion="1.0.0" />
+      <ConfigOverrides />
+   </ServiceManifestImport>
+   <DefaultServices>
+      <Service Name="CacheService">
+         <StatefulService ServiceTypeName="CacheServiceType" TargetReplicaSetSize="[CacheService_TargetReplicaSetSize]" MinReplicaSetSize="[CacheService_MinReplicaSetSize]">
+            <UniformInt64Partition PartitionCount="[CacheService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+         </StatefulService>
+      </Service>
+      <Service Name="InvoiceService">
+         <StatefulService ServiceTypeName="InvoiceServiceType" TargetReplicaSetSize="[InvoiceService_TargetReplicaSetSize]" MinReplicaSetSize="[InvoiceService_MinReplicaSetSize]">
+            <UniformInt64Partition PartitionCount="[InvoiceService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+         </StatefulService>
+      </Service>
+      <Service Name="CustomerService">
+         <StatefulService ServiceTypeName="CustomerServiceType" TargetReplicaSetSize="[CustomerService_TargetReplicaSetSize]" MinReplicaSetSize="[CustomerService_MinReplicaSetSize]">
+            <UniformInt64Partition PartitionCount="[CustomerService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+         </StatefulService>
+      </Service>
+      <Service Name="Counter">
+         <StatefulService ServiceTypeName="CounterType" TargetReplicaSetSize="[Counter_TargetReplicaSetSize]" MinReplicaSetSize="[Counter_MinReplicaSetSize]">
+            <UniformInt64Partition PartitionCount="[Counter_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+         </StatefulService>
+      </Service>
+      <Service Name="Host">
+         <StatelessService ServiceTypeName="HostType" InstanceCount="[Host_InstanceCount]">
+            <SingletonPartition />
+         </StatelessService>
+      </Service>
+   </DefaultServices>
+</ApplicationManifest>

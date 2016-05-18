@@ -1,0 +1,25 @@
+<div class="row" ng-controller="AddCustomerCtrl">
+    <div class="col-lg-6">
+        <rd-widget>
+            <rd-widget-header icon="fa-users" title="Add Customer">
+            </rd-widget-header>
+            <rd-widget-body classes="large">
+                <form ng-submit="saveCustomer()">
+                    <fieldset class="form-group">
+                        <label>First Name:</label>
+                        <input type="text" class="form-control" ng-model="customer.FirstName" placeholder="First Name" ng-required />
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Last Name:</label>
+                        <input type="text" class="form-control" ng-model="customer.LastName" placeholder="Last Name" ng-required />
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Age:</label>
+                        <input type="text" class="form-control" ng-model="customer.Age" placeholder="Age" ng-required />
+                    </fieldset>
+                    <button class="btn" type="submit">Save</button>
+                </form>
+            </rd-widget-body>
+        </rd-widget>
+    </div>
+</div>

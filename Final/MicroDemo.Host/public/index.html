@@ -1,0 +1,283 @@
+﻿<!doctype html>
+<html lang="en" ng-app="RDash">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Keyhole Fabric Demo</title>
+    <!-- STYLES -->
+    <link rel="stylesheet" href="lib/css/main.min.css" />
+
+    <style>
+        .noselect {
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none;   /* Chrome/Safari/Opera */
+            -khtml-user-select: none;    /* Konqueror */
+            -moz-user-select: none;      /* Firefox */
+            -ms-user-select: none;       /* Internet Explorer/Edge */
+            user-select: none;           /* Non-prefixed version, currently
+                                            not supported by any browser */
+            cursor: pointer;
+        }
+        .clickableRow:hover td {
+            background-color: #f9f9f9;
+        }
+
+        .widget .widget-footer {
+          border-top: 1px solid #e9e9e9;
+          padding: 10px;
+          min-height: 50px;
+        }
+    </style>
+    <!-- SCRIPTS -->
+    <script src="lib/js/main.min.js"></script>
+    <!-- Custom Scripts -->
+    <script type="text/javascript" src="js/dashboard.min.js"></script>
+    <script type="text/javascript">
+        var app = angular.module("RDash");
+        //ClickCount
+
+        app.controller("CountCtrl", function ($scope, $http) {
+            $http
+                .get('/api/counter/GetClickCount')
+                .success(function (data, status, headers, config) {
+                    $scope.clickStats = data;
+                })
+                .error(function (data, status, headers, config) {
+                    // log error
+                });
+
+            $scope.increment = function () {
+                $http
+                .get('/api/counter/IncrementClickCount')
+                .success(function (data, status, headers, config) {
+                    $scope.clickStats = data;
+                })
+                .error(function (data, status, headers, config) {
+                    // log error
+                });
+            }
+
+        });
+
+        app.controller("NodeCtrl", function ($scope, $http) {
+            $http
+                .get('api/Utilities/WhoIs')
+                .success(function (data, status, headers, config) {
+                    $scope.servedBy = data;
+                })
+                .error(function (data, status, headers, config) {
+                    // log error
+                });
+        });
+
+        app.controller("CustomerStatsCtrl", function ($scope, $http, $location) {
+
+            $http
+                .get('/api/Customers/CustomerCount')
+                .success(function (data, status, headers, config) {
+                    $scope.customerStats =
+                    {
+                        CustomerCount: data
+                    };
+                })
+                .error(function (data, status, headers, config) {
+                    // log error
+                });
+
+            $scope.openCustomers = function () {
+                $location.path('/customers');
+            }
+            
+        });
+
+        app.controller("CustomerListCtrl", function ($scope, $http, $location) {
+
+            $scope.customerList = [
+            ]
+
+            $scope.invoiceList = [
+            ]
+
+            $scope.isCustomerSelected = false;
+
+            $http
+               .get('/api/Customers/GetAllCustomers')
+               .success(function (data, status, headers, config) {
+                   $scope.customerList = data;
+               })
+               .error(function (data, status, headers, config) {
+                   // log error
+               });
+
+            $scope.clickCustomer = function (id) {
+                $http
+               .get('api/Invoice/GetAllInvoicesForCustomer?customerId=' + id)
+               .success(function (data, status, headers, config) {
+                   $scope.invoiceList = data;
+
+                   $scope.selectedCustomer = id;
+                   $scope.isCustomerSelected = true;
+               })
+               .error(function (data, status, headers, config) {
+                   // log error
+               });
+            }
+
+            $scope.clickAddCustomer = function (id) {
+                $location.path('/addCustomer');
+            }
+
+            $scope.clickAddInvoice = function () {
+                var path = 'api/Invoice/AddInvoice?customerId=' + $scope.selectedCustomer;
+                
+                $http
+                   .post(path)
+                   .success(function (data, status, headers, config) {
+                       $location.path('/editInvoice/' + data);
+                   })
+                   .error(function (data, status, headers, config) {
+                        // log error
+                   });
+            }
+
+            $scope.clickInvoice = function (id) {
+                $location.path('/editInvoice/' + id);
+            }
+        });
+
+        ///api/Customers/CustomerCount
+        app.controller("InvoiceStatsCtrl", function ($scope, $http, $location) {
+
+            $http
+               .get('api/Invoice/GetInvoicesTotal')
+               .success(function (data, status, headers, config) {
+                   $scope.invoiceStats =
+                    {
+                        TotalVolume: data
+                    };
+               })
+               .error(function (data, status, headers, config) {
+                   // log error
+               });
+
+            $scope.openInvoices = function () {
+                $location.path('/invoices');
+            }
+        });
+
+        app.controller("CacheDashCtrl", function ($scope, $http, $location) {
+            $scope.openCache = function () {
+                window.location = "/swagger/ui/index#/Cache";
+            }
+        });
+
+        app.controller("AddCustomerCtrl", function ($scope, $http, $location) {
+            $scope.saveCustomer = function () {
+
+                $http
+                .post('api/Customers/AddCustomer', this.customer)
+                .success(function (data, status, headers, config) {
+                    $location.path('/customers');
+                })
+                .error(function (data, status, headers, config) {
+                    // log error
+                });
+            }
+        });
+
+        app.controller("EditInvoiceCtrl", function ($scope, $http, $location, $stateParams) {
+            $scope.invoiceId = $stateParams.id;            
+
+            $http
+                .get('api/Invoice/GetInvoice/' + $scope.invoiceId)
+                .success(function (data, status, headers, config) {
+                    $scope.invoice = data;
+                })
+                .error(function (data, status, headers, config) {
+                    // log error
+                });
+
+            $scope.total = function () {
+                var total = 0;
+                if ($scope.invoice && $scope.invoice.Items)
+                {
+                    for (var i = 0; i < $scope.invoice.Items.length; i++) {
+                        total += $scope.invoice.Items[i].LineTotal;
+                    }
+                }
+
+                return total;
+            };
+
+            $scope.addItem = function () {
+                var item = this.newItem;
+                item.LineTotal = item.Quantity * item.Price;
+
+                $scope.invoice.Items.push(item)
+
+                $scope.newItem = null;
+            };
+
+            $scope.updateInvoice = function () {
+                $http
+                .post('api/Invoice/UpdateInvoice', $scope.invoice)
+                .success(function (data, status, headers, config) {
+                    $location.path('/customers');
+                })
+                .error(function (data, status, headers, config) {
+                    // log error
+                });
+                
+
+            };
+        });
+    </script>
+</head>
+<body ng-controller="MasterCtrl">
+    <div id="page-wrapper" ng-cloak>
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar">
+                <li class="sidebar-main">
+                    <a ng-click="toggleSidebar()">
+                        Dashboard
+                        <span class="menu-icon glyphicon glyphicon-transfer"></span>
+                    </a>
+                </li>
+                <li class="sidebar-title"><span>NAVIGATION</span></li>
+                <li class="sidebar-list">
+                    <a href="#">Dashboard <span class="menu-icon fa fa-tachometer"></span></a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+            </div>
+        </div>
+        <!-- End Sidebar -->
+
+        <div id="content-wrapper">
+            <div class="page-content">
+
+                <!-- Header Bar -->
+                <div class="row header">
+                    <div class="col-xs-12">
+                        <div class="meta">
+                            <div class="page">
+                                Dashboard
+                            </div>
+                            <div class="breadcrumb-links" ng-controller="NodeCtrl">
+                                Home / Dashboard  | Served By : {{servedBy}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Header Bar -->
+                <!-- Main Content -->
+                <div ui-view></div>
+
+            </div><!-- End Page Content -->
+        </div><!-- End Content Wrapper -->
+    </div><!-- End Page Wrapper -->
+</body>
+</html>

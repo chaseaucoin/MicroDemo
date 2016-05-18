@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+***********************************************************************************************
+Microsoft.VisualStudio.Azure.Fabric.ApplicationProject.targets
+
+WARNING:  DO NOT MODIFY this file unless you are knowledgeable about MSBuild and have
+          created a backup copy.  Incorrect changes to this file will make it
+          impossible to load or build your projects from the command-line or the IDE.
+
+This file defines the steps in the standard build process for Service Fabric projects.
+
+Copyright (C) Microsoft Corporation. All rights reserved.
+***********************************************************************************************
+-->
+
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <!-- Suppress common item schemas and capabilities as we are taking care of them. -->
+    <DefineCommonItemSchemas>false</DefineCommonItemSchemas>
+    <DefineCommonCapabilities>false</DefineCommonCapabilities>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Globals">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
+    <DebugSymbols>false</DebugSymbols>
+    <Platform>x64</Platform>
+    <SkipCopyBuildProduct>true</SkipCopyBuildProduct>
+    <TargetRuntime>None</TargetRuntime>
+    <OutputType>FabricApplication</OutputType>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+
+  <!-- Capabilities for this project.  Conditions should be based on platform|configuration only. -->
+  <ItemGroup>
+    <ProjectCapability Include="ProjectReferences" />
+    <ProjectCapability Include="ReferencesFolder" />
+    <ProjectCapability Include="ProjectConfigurationsDeclaredAsItems" />
+    <ProjectCapability Include="FabricApplication" />
+  </ItemGroup>
+
+  <!-- Describes the rules files used by CPS to represent the project -->
+  <Choose>
+    <When Condition=" ( '$(LangName)' == 'en-US' ) OR ( '$(LangName)' == '' ) ">
+      <PropertyGroup>
+        <RulesDirectory>$(MSBuildThisFileDirectory)Rules</RulesDirectory>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <RulesDirectory>$(MSBuildThisFileDirectory)Rules\$(LangName)</RulesDirectory>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+
+  <ItemGroup>
+    <PropertyPageSchema Include="
+                        $(RulesDirectory)\General.xaml;
+                        ">
+      <Context>Project</Context>
+    </PropertyPageSchema>
+
+    <PropertyPageSchema Include="
+                        $(RulesDirectory)\General.BrowseObject.xaml;
+                        ">
+      <Context>;BrowseObject</Context>
+    </PropertyPageSchema>
+
+    <PropertyPageSchema Include="
+                        $(RulesDirectory)\ProjectReference.xaml;
+                        ">
+      <Context>;BrowseObject</Context>
+    </PropertyPageSchema>
+
+    <PropertyPageSchema Include="
+                        $(RulesDirectory)\ResolvedProjectReference.xaml;
+                        ">
+      <Context>ProjectSubscriptionService;BrowseObject</Context>
+    </PropertyPageSchema>
+
+    <PropertyPageSchema Include="
+                        $(RulesDirectory)\ProjectItemsSchema.xaml;
+                        "/>
+
+    <PropertyPageSchema Include="
+                        $(RulesDirectory)\Content.xaml;
+                        $(RulesDirectory)\Folder.xaml;
+                        $(RulesDirectory)\None.xaml;
+                        ">
+      <Context>File;BrowseObject</Context>
+    </PropertyPageSchema>
+
+    <PropertyPageSchema Include="
+                        $(RulesDirectory)\General.Debugger.xaml;
+                        $(RulesDirectory)\DebuggerLocal.xaml;
+                        ">
+      <Context>Project</Context>
+    </PropertyPageSchema>
+
+    <PropertyPageSchema Include="
+                        $(RulesDirectory)\SCC.xaml;
+                        ">
+      <Context>Invisible</Context>
+    </PropertyPageSchema>
+  </ItemGroup>
+
+  <ItemDefinitionGroup>
+    <ProjectReference>
+      <Private>false</Private>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+
+  <PropertyGroup>
+    <!-- The default content type as defined within Rules\ProjectItemsSchema.xaml -->
+    <DefaultContentType>Default</DefaultContentType>
+  </PropertyGroup>
+
+  <Target Name="CreateManifestResourceNames" />
+  <Target Name="CoreCompile" />
+
+  <Import Project="$(MSBuildThisFileDirectory)\Microsoft.VisualStudio.Azure.Fabric.ApplicationPackage.targets" />
+
+</Project>
