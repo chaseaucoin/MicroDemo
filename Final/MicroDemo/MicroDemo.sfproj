@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\BuildTools\Microsoft.VisualStudio.Azure.Fabric.ApplicationProject.props" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Service Fabric Tools\Microsoft.VisualStudio.Azure.Fabric.ApplicationProject.props" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>205a8fc1-e640-478c-af4e-1e59593d304e</ProjectGuid>
     <ProjectVersion>1.0</ProjectVersion>
@@ -20,5 +20,5 @@
     <ProjectReference Include="..\Keyhole.Project.Counter\CounterService.csproj" />
     <ProjectReference Include="..\MicroDemo.Host\MicroDemo.Host.csproj" />
   </ItemGroup>
-  <Import Project="..\BuildTools\Microsoft.VisualStudio.Azure.Fabric.ApplicationProject.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Service Fabric Tools\Microsoft.VisualStudio.Azure.Fabric.ApplicationProject.targets" />
 </Project>
