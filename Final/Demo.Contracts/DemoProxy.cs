@@ -32,7 +32,7 @@ namespace Demo.Contracts
 
         public static ICounterService CounterService()
         {
-            var uri = new Uri("fabric:/MicroDemo/Counter");
+            var uri = new Uri("fabric:/MicroDemo/CounterService");
             var service = ServiceProxy.Create<ICounterService>(uri, new ServicePartitionKey(0));
             
             return service;
@@ -44,7 +44,7 @@ namespace Demo.Contracts
             var selectedPartition = QuickHash.Hash(key) % partitions;
 
             var uri = new Uri("fabric:/MicroDemo/CacheService");
-            var service = ServiceProxy.Create<ICacheService>(uri, new ServicePartitionKey(0));
+            var service = ServiceProxy.Create<ICacheService>(uri, new ServicePartitionKey(selectedPartition));
 
             return service;
         }

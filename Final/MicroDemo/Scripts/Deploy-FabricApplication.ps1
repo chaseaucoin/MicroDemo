@@ -54,9 +54,7 @@ Deploy the application but do not create the application instance.
 .EXAMPLE
 . Scripts\Deploy-FabricApplication.ps1 -ApplicationPackagePath 'pkg\Debug' -ApplicationParameter @{CustomParameter1='MyValue'; CustomParameter2='MyValue'}
 
-Deploy the application by providing 
-
- for parameters that are defined in the application manifest.
+Deploy the application by providing values for parameters that are defined in the application manifest.
 #>
 
 Param

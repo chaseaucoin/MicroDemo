@@ -108,7 +108,7 @@ namespace InvoiceService
                     .FirstOrDefault(_invoice => _invoice.Id == invoice.Id);
 
                 selectedInvoice.Items = invoice.Items;
-                
+
                 await myDictionary.TryUpdateAsync(tx, 0, invoices, invoices);
 
                 await tx.CommitAsync();

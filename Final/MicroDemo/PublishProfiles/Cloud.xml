@@ -16,9 +16,6 @@
                                     StoreName="My" />
 
   -->
-  <ClusterConnectionParameters ConnectionEndpoint="keyholefabric.southcentralus.cloudapp.azure.com:19000" />
+  <ClusterConnectionParameters ConnectionEndpoint="" />
   <ApplicationParameterFile Path="..\ApplicationParameters\Cloud.xml" />
-  <UpgradeDeployment Mode="Monitored" Enabled="true">
-    <Parameters FailureAction="Rollback" Force="True" />
-  </UpgradeDeployment>
 </PublishProfile>

@@ -23,14 +23,14 @@ namespace MicroDemo.Host.Controllers
 
                 return result;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new CounterStats()
                 {
                     ClickCount = 0,
                     ServedBy = ex.Message
                 };
-            }            
+            }
         }
 
         [HttpGet]

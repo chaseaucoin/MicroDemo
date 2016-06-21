@@ -49,7 +49,7 @@ namespace CustomerService
             {
                 var result = await myDictionary.TryGetValueAsync(tx, 0);
                 var count = result.Value.Count;
-                
+
                 return count;
             }
         }
@@ -60,7 +60,7 @@ namespace CustomerService
             using (var tx = this.StateManager.CreateTransaction())
             {
                 var result = await myDictionary.TryGetValueAsync(tx, 0);
-                
+
                 return result.Value;
             }
         }
@@ -113,7 +113,7 @@ namespace CustomerService
             {
                 var result = await myDictionary.TryGetValueAsync(tx, 0);
 
-                if(!result.HasValue)
+                if (!result.HasValue)
                 {
                     var defaultCustomers = new List<Customer>()
                     {

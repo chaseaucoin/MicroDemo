@@ -10,6 +10,11 @@ namespace MicroDemo.Host.Controllers
 {
     public class CacheController : ApiController
     {
+        /// <summary>
+        /// Gets the specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
         public async Task<string> Get(string key)
         {
             var service = DemoProxy.CacheService(key);
@@ -18,6 +23,12 @@ namespace MicroDemo.Host.Controllers
             return value;
         }
 
+        /// <summary>
+        /// Adds the or update.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
         [HttpPost]
         public async Task AddOrUpdate(string key, [FromBody]string value)
         {

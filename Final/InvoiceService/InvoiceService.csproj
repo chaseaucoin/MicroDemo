@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
-    <ProjectGuid>{91244EAB-63DE-4BFB-9985-D345CAC3F2ED}</ProjectGuid>
+    <ProjectGuid>{E5CC7D65-B1A5-49E4-AB59-8D729292273A}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>InvoiceService</RootNamespace>
@@ -77,7 +77,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Counter.Contracts\Demo.Contracts.csproj">
+    <ProjectReference Include="..\Demo.Contracts\Demo.Contracts.csproj">
       <Project>{ffb1354a-4ee8-4e15-b79f-3b9c24228609}</Project>
       <Name>Demo.Contracts</Name>
     </ProjectReference>

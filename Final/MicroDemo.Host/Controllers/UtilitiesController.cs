@@ -14,7 +14,7 @@ namespace MicroDemo.Host.Controllers
         // GET api/Utilities/WhoIs 
         public string WhoIs()
         {
-            return FabricRuntime.GetNodeContext().NodeName;
+            return FabricRuntime.GetNodeContext().NodeName; 
         }
     }
 }

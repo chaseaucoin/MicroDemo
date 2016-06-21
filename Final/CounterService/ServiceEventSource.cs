@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Tracing;
+using System.Fabric;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Services.Runtime;
 
-namespace Keyhole.Project.Counter
+namespace CounterService
 {
-    [EventSource(Name = "MyCompany-MicroDemo-Counter")]
+    [EventSource(Name = "MyCompany-MicroDemo-CounterService")]
     internal sealed class ServiceEventSource : EventSource
     {
         public static readonly ServiceEventSource Current = new ServiceEventSource();

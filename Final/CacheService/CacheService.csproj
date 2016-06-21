@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
-    <ProjectGuid>{064B6B74-594E-4CA7-868D-8AF704596A4A}</ProjectGuid>
+    <ProjectGuid>{ADE34B09-8401-4804-BD41-1EB028A57E81}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CacheService</RootNamespace>
@@ -66,7 +66,6 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CacheItemPolicy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CacheService.cs" />
     <Compile Include="Program.cs" />
@@ -79,7 +78,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Counter.Contracts\Demo.Contracts.csproj">
+    <ProjectReference Include="..\Demo.Contracts\Demo.Contracts.csproj">
       <Project>{ffb1354a-4ee8-4e15-b79f-3b9c24228609}</Project>
       <Name>Demo.Contracts</Name>
     </ProjectReference>

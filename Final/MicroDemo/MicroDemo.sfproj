@@ -2,7 +2,7 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Service Fabric Tools\Microsoft.VisualStudio.Azure.Fabric.ApplicationProject.props" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>205a8fc1-e640-478c-af4e-1e59593d304e</ProjectGuid>
+    <ProjectGuid>44046d7d-21cb-48ab-8d77-ce24fc0fabc7</ProjectGuid>
     <ProjectVersion>1.0</ProjectVersion>
   </PropertyGroup>
   <ItemGroup>
@@ -15,9 +15,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CacheService\CacheService.csproj" />
+    <ProjectReference Include="..\CounterService\CounterService.csproj" />
     <ProjectReference Include="..\CustomerService\CustomerService.csproj" />
     <ProjectReference Include="..\InvoiceService\InvoiceService.csproj" />
-    <ProjectReference Include="..\Keyhole.Project.Counter\CounterService.csproj" />
     <ProjectReference Include="..\MicroDemo.Host\MicroDemo.Host.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Service Fabric Tools\Microsoft.VisualStudio.Azure.Fabric.ApplicationProject.targets" />

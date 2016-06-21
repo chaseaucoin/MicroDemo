@@ -12,9 +12,9 @@ namespace Keyhole.Project.Counter
     /// <summary>
     /// An instance of this class is created for each service replica by the Service Fabric runtime.
     /// </summary>
-    internal sealed class Counter : StatefulService, ICounterService
+    internal sealed class CounterService : StatefulService, ICounterService
     {
-        public Counter(StatefulServiceContext context)
+        public CounterService(StatefulServiceContext context)
             : base(context)
         { }
 
@@ -38,7 +38,7 @@ namespace Keyhole.Project.Counter
         {
             using (var tx = StateManager.CreateTransaction())
             {
-                var countDictionary = await this.StateManager.GetOrAddAsync<IReliableDictionary<long, long>>("countDictionary");                
+                var countDictionary = await this.StateManager.GetOrAddAsync<IReliableDictionary<long, long>>("countDictionary");
                 var result = await countDictionary.AddOrUpdateAsync(tx, 0, 1, (key, value) => ++value);
 
                 await tx.CommitAsync();
