@@ -18,7 +18,7 @@ namespace MicroDemo.Host.Controllers
         /// <exception cref="System.NotImplementedException"></exception>
         public async Task<string> Get(string key)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult("Not implemented");
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace MicroDemo.Host.Controllers
         [HttpPost]
         public async Task AddOrUpdate(string key, [FromBody]string value)
         {
-            throw new NotImplementedException();
+            await Task.FromResult("Not implemented");
         }
     }
 }

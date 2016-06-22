@@ -19,7 +19,7 @@ namespace MicroDemo.Host.Controllers
         [HttpGet]
         public async Task<CounterStats> GetClickCount()
         {
-            throw new NotImplementedException();
+            return await Task.FromResult<CounterStats>(new CounterStats() { ClickCount = 0, ServedBy = "Not Implemented" });
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace MicroDemo.Host.Controllers
         [HttpGet]
         public async Task<CounterStats> IncrementClickCount()
         {
-            throw new NotImplementedException();
+            return await Task.FromResult<CounterStats>(new CounterStats() { ClickCount = 0, ServedBy = "Not Implemented" });
         }
     }
 }

@@ -18,7 +18,7 @@ namespace MicroDemo.Host.Controllers
         /// <returns></returns>
         public async Task<Customer> GetCustomer(int id)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(new Customer() { Id = 0, FirstName = "Not", LastName = "Implemented" });
         }
 
         /// <summary>
@@ -27,7 +27,9 @@ namespace MicroDemo.Host.Controllers
         /// <returns></returns>
         public async Task<IEnumerable<Customer>> GetAllCustomers()
         {
-            throw new NotImplementedException();
+            var resultList = new List<Customer>();
+            resultList.Add(new Customer() { Id = 0, FirstName = "Not", LastName = "Implemented" });
+            return await Task.FromResult(resultList);
         }
 
         /// <summary>
@@ -37,7 +39,7 @@ namespace MicroDemo.Host.Controllers
         [HttpGet]
         public async Task<int> CustomerCount()
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(0);
         }
 
         /// <summary>
@@ -47,7 +49,7 @@ namespace MicroDemo.Host.Controllers
         [HttpPost]
         public async Task AddCustomer(Customer customer)
         {
-            throw new NotImplementedException();
+            await Task.FromResult(0);
         }
 
         /// <summary>
@@ -57,7 +59,7 @@ namespace MicroDemo.Host.Controllers
         [HttpPost]
         public async Task RemoveCustomer(int customerId)
         {
-            throw new NotImplementedException();
+            await Task.FromResult(0);
         }
     }
 }

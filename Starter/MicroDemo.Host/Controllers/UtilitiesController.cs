@@ -14,7 +14,7 @@ namespace MicroDemo.Host.Controllers
         // GET api/Utilities/WhoIs 
         public string WhoIs()
         {
-            throw new NotImplementedException();
+            return "Whois: Not implemented";
         }
     }
 }

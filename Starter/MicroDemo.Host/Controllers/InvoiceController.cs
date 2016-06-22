@@ -16,18 +16,18 @@ namespace MicroDemo.Host.Controllers
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        public Task<Invoice> GetInvoice(int id)
+        public async Task<Invoice> GetInvoice(int id)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult<Invoice>(null);            
         }
 
         /// <summary>
         /// Gets the customers.
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable<Invoice>> GetAllInvoicesForCustomer(int customerId)
+        public async Task<IEnumerable<Invoice>> GetAllInvoicesForCustomer(int customerId)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult<List<Invoice>>(null);
         }
 
         /// <summary>
@@ -35,9 +35,9 @@ namespace MicroDemo.Host.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public Task UpdateInvoice(Invoice invoice)
+        public async Task UpdateInvoice(Invoice invoice)
         {
-            throw new NotImplementedException();
+            await Task.FromResult(0);
         }
 
         /// <summary>
@@ -46,14 +46,14 @@ namespace MicroDemo.Host.Controllers
         /// <param name="customerId">The customer identifier.</param>
         /// <returns>Invoice Id</returns>
         [HttpPost]
-        public Task<int> AddInvoice(int customerId)
+        public async Task<int> AddInvoice(int customerId)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(0);
         }
 
-        public Task<decimal> GetInvoicesTotal()
+        public async Task<decimal> GetInvoicesTotal()
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(0);
         }
     }
 }

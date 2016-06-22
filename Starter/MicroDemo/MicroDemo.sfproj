@@ -24,14 +24,12 @@
     <None Include="Scripts\Deploy-FabricApplication.ps1" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="packages.config" />
     <ProjectReference Include="..\CacheService\CacheService.csproj" />
     <ProjectReference Include="..\CounterService\CounterService.csproj" />
     <ProjectReference Include="..\CustomerService\CustomerService.csproj" />
     <ProjectReference Include="..\InvoiceService\InvoiceService.csproj" />
     <ProjectReference Include="..\MicroDemo.Host\MicroDemo.Host.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <PropertyGroup>
