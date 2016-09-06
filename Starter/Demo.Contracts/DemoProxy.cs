@@ -2,6 +2,9 @@
 using Demo.Contracts.Counter;
 using Demo.Contracts.Customers;
 using Demo.Contracts.Invoices;
+using InvoiceAnalytics.Interfaces;
+using Microsoft.ServiceFabric.Actors;
+using Microsoft.ServiceFabric.Actors.Client;
 using Microsoft.ServiceFabric.Services.Client;
 using Microsoft.ServiceFabric.Services.Remoting.Client;
 using System;
@@ -16,7 +19,7 @@ namespace Demo.Contracts
     {
         public static ICustomerService CustomerService()
         {
-            var uri = new Uri("fabric:/MicroDemo/CustomerService");            
+            var uri = new Uri("fabric:/MicroDemo/CustomerService");
             var service = ServiceProxy.Create<ICustomerService>(uri, new ServicePartitionKey(0));
 
             return service;
@@ -32,9 +35,9 @@ namespace Demo.Contracts
 
         public static ICounterService CounterService()
         {
-            var uri = new Uri("fabric:/MicroDemo/Counter");
+            var uri = new Uri("fabric:/MicroDemo/CounterService");
             var service = ServiceProxy.Create<ICounterService>(uri, new ServicePartitionKey(0));
-            
+
             return service;
         }
 
@@ -44,9 +47,19 @@ namespace Demo.Contracts
             var selectedPartition = QuickHash.Hash(key) % partitions;
 
             var uri = new Uri("fabric:/MicroDemo/CacheService");
-            var service = ServiceProxy.Create<ICacheService>(uri, new ServicePartitionKey(0));
+            var service = ServiceProxy.Create<ICacheService>(uri, new ServicePartitionKey(selectedPartition));
 
             return service;
+        }
+
+        public static IInvoiceAggregator InvoiceAggregator(string Id)
+        {
+            var uri = new Uri("fabric:/MicroDemo/InvoiceAggregatorActorService");
+            var id = new ActorId(Id);
+
+            IInvoiceAggregator aggregator = ActorProxy.Create<IInvoiceAggregator>(id, uri);
+
+            return aggregator;
         }
     }
 }

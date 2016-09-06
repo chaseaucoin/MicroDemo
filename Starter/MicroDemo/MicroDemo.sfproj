@@ -4,6 +4,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>44046d7d-21cb-48ab-8d77-ce24fc0fabc7</ProjectGuid>
     <ProjectVersion>1.1</ProjectVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -28,6 +29,7 @@
     <ProjectReference Include="..\CacheService\CacheService.csproj" />
     <ProjectReference Include="..\CounterService\CounterService.csproj" />
     <ProjectReference Include="..\CustomerService\CustomerService.csproj" />
+    <ProjectReference Include="..\InvoiceAnalytics\InvoiceAnalytics.csproj" />
     <ProjectReference Include="..\InvoiceService\InvoiceService.csproj" />
     <ProjectReference Include="..\MicroDemo.Host\MicroDemo.Host.csproj" />
   </ItemGroup>

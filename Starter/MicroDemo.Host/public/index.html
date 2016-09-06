@@ -11,32 +11,91 @@
     <style>
         .noselect {
             -webkit-touch-callout: none; /* iOS Safari */
-            -webkit-user-select: none;   /* Chrome/Safari/Opera */
-            -khtml-user-select: none;    /* Konqueror */
-            -moz-user-select: none;      /* Firefox */
-            -ms-user-select: none;       /* Internet Explorer/Edge */
-            user-select: none;           /* Non-prefixed version, currently
+            -webkit-user-select: none; /* Chrome/Safari/Opera */
+            -khtml-user-select: none; /* Konqueror */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
                                             not supported by any browser */
             cursor: pointer;
         }
+
         .clickableRow:hover td {
             background-color: #f9f9f9;
         }
 
         .widget .widget-footer {
-          border-top: 1px solid #e9e9e9;
-          padding: 10px;
-          min-height: 50px;
+            border-top: 1px solid #e9e9e9;
+            padding: 10px;
+            min-height: 50px;
         }
+        .roulettegreen{ color: lightgreen }
+        .roulettered{ color: red }
+        .black{ color: black }
     </style>
     <!-- SCRIPTS -->
     <script src="lib/js/main.min.js"></script>
+    <script src="Scripts/jquery-1.6.4.min.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.1.min.js"></script>
     <!-- Custom Scripts -->
     <script type="text/javascript" src="js/dashboard.min.js"></script>
     <script type="text/javascript">
         var app = angular.module("RDash");
-        //ClickCount
+        app.value('backendServerUrl', 'http://localhost/');
 
+        app.factory('backendHubProxy', ['$rootScope', 'backendServerUrl',
+          function ($rootScope, backendServerUrl) {
+
+              function backendFactory(serverUrl, hubName) {
+                  var connection = $.hubConnection(backendServerUrl);
+                  var proxy = connection.createHubProxy(hubName);
+
+                  connection.start().done(function () { });
+
+                  return {
+                      on: function (eventName, callback) {
+                          proxy.on(eventName, function (result) {
+                              $rootScope.$apply(function () {
+                                  if (callback) {
+                                      callback(result);
+                                  }
+                              });
+                          });
+                      },
+                      invoke: function (methodName, callback) {
+                          proxy.invoke(methodName)
+                          .done(function (result) {
+                              $rootScope.$apply(function () {
+                                  if (callback) {
+                                      callback(result);
+                                  }
+                              });
+                          });
+                      }
+                  };
+              };
+
+              return backendFactory;
+          }]);
+        app.controller('rouletteCtrl', ['$scope', 'backendHubProxy',
+          function ($scope, backendHubProxy) {
+              console.log('trying to connect to service')
+              var performanceDataHub = backendHubProxy(backendHubProxy.defaultServer, 'iotHub');
+              console.log('connected to service')
+              $scope.stat = 0;
+              $scope.numberColor = '';
+
+              performanceDataHub.on('broadcastStat', function (data) {
+                  $scope.number = data;
+                  $scope.numberColor = 'black'
+
+                  if(data % 2 == 0) $scope.numberColor = 'roulettered';
+                  if(data == 0) $scope.numberColor = 'roulettegreen';
+              });
+          }
+        ]);
+
+        //ClickCount
         app.controller("CountCtrl", function ($scope, $http) {
             $http
                 .get('/api/counter/GetClickCount')
@@ -88,7 +147,7 @@
             $scope.openCustomers = function () {
                 $location.path('/customers');
             }
-            
+
         });
 
         app.controller("CustomerListCtrl", function ($scope, $http, $location) {
@@ -130,14 +189,14 @@
 
             $scope.clickAddInvoice = function () {
                 var path = 'api/Invoice/AddInvoice?customerId=' + $scope.selectedCustomer;
-                
+
                 $http
                    .post(path)
                    .success(function (data, status, headers, config) {
                        $location.path('/editInvoice/' + data);
                    })
                    .error(function (data, status, headers, config) {
-                        // log error
+                       // log error
                    });
             }
 
@@ -187,7 +246,7 @@
         });
 
         app.controller("EditInvoiceCtrl", function ($scope, $http, $location, $stateParams) {
-            $scope.invoiceId = $stateParams.id;            
+            $scope.invoiceId = $stateParams.id;
 
             $http
                 .get('api/Invoice/GetInvoice/' + $scope.invoiceId)
@@ -200,8 +259,7 @@
 
             $scope.total = function () {
                 var total = 0;
-                if ($scope.invoice && $scope.invoice.Items)
-                {
+                if ($scope.invoice && $scope.invoice.Items) {
                     for (var i = 0; i < $scope.invoice.Items.length; i++) {
                         total += $scope.invoice.Items[i].LineTotal;
                     }
@@ -228,7 +286,7 @@
                 .error(function (data, status, headers, config) {
                     // log error
                 });
-                
+
 
             };
         });
