@@ -14,7 +14,13 @@
     <Parameter Name="CacheService_PartitionCount" DefaultValue="1" />
     <Parameter Name="CacheService_TargetReplicaSetSize" DefaultValue="3" />
     <Parameter Name="Host_InstanceCount" DefaultValue="-1" />
+    <Parameter Name="InvoiceAggregatorActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="InvoiceAggregatorActorService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="InvoiceAggregatorActorService_TargetReplicaSetSize" DefaultValue="3" />
   </Parameters>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="InvoiceAnalyticsPkg" ServiceManifestVersion="1.0.0" />
+  </ServiceManifestImport>
   <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="CounterServicePkg" ServiceManifestVersion="1.0.0" />
     <ConfigOverrides />
@@ -60,6 +66,11 @@
       <StatelessService ServiceTypeName="HostType" InstanceCount="[Host_InstanceCount]">
         <SingletonPartition />
       </StatelessService>
+    </Service>
+    <Service Name="InvoiceAggregatorActorService" GeneratedIdRef="bf586dc5-c512-413c-a77f-24be5b6ff373|Persisted">
+      <StatefulService ServiceTypeName="InvoiceAnalyticsActorServiceType" TargetReplicaSetSize="[InvoiceAggregatorActorService_TargetReplicaSetSize]" MinReplicaSetSize="[InvoiceAggregatorActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[InvoiceAggregatorActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
     </Service>
   </DefaultServices>
 </ApplicationManifest>

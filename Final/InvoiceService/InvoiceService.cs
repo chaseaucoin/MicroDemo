@@ -9,6 +9,7 @@ using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 using Demo.Contracts.Invoices;
 using Microsoft.ServiceFabric.Services.Remoting.Runtime;
+using Demo.Contracts;
 
 namespace InvoiceService
 {
@@ -30,7 +31,11 @@ namespace InvoiceService
                 var result = await myDictionary.TryGetValueAsync(tx, 0);
                 var invoices = result.Value;
 
-                var newId = invoices.Max(x => x.Id) + 1;
+                var newId = 0;
+
+                if (invoices.Count > 0)
+                    newId = invoices.Max(x => x.Id) + 1;
+
                 invoices.Add(new Invoice() { Id = newId, CustomerId = customerId });
 
                 await myDictionary.TryUpdateAsync(tx, 0, invoices, invoices);
@@ -98,6 +103,10 @@ namespace InvoiceService
         public async Task UpdateInvoice(Invoice invoice)
         {
             var myDictionary = await this.StateManager.GetOrAddAsync<IReliableDictionary<int, List<Invoice>>>("InvoiceData");
+            var aggregator = DemoProxy.InvoiceAggregator("AllInvoices");
+            decimal oldTotal = 0;
+            var newTotal = invoice.InvoiceTotal;
+
 
             using (var tx = this.StateManager.CreateTransaction())
             {
@@ -107,11 +116,25 @@ namespace InvoiceService
                 var selectedInvoice = result.Value
                     .FirstOrDefault(_invoice => _invoice.Id == invoice.Id);
 
+                oldTotal = selectedInvoice.InvoiceTotal;
+
                 selectedInvoice.Items = invoice.Items;
 
                 await myDictionary.TryUpdateAsync(tx, 0, invoices, invoices);
 
                 await tx.CommitAsync();
+
+                try
+                {
+                    decimal updatedTotal = newTotal - oldTotal;
+                    await aggregator.AddToInvoiceTotal(updatedTotal);
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e);
+
+                    throw;
+                }
             }
         }
 
@@ -148,14 +171,7 @@ namespace InvoiceService
 
                 if (!result.HasValue)
                 {
-                    var defaultInvoices = new List<Invoice>()
-                    {
-                        new Invoice() { Id = 0, CustomerId = 0,
-                            Items = new List<InvoiceItem>(){
-                                new InvoiceItem() { Name = "Girl Scout Cookies", Price = 3.5m, Quantity = 6 }
-                            }
-                        }
-                    };
+                    var defaultInvoices = new List<Invoice>();
 
                     await myDictionary.AddAsync(tx, 0, defaultInvoices);
                 }

@@ -64,8 +64,8 @@ namespace MicroDemo.Host.Controllers
 
         public async Task<decimal> GetInvoicesTotal()
         {
-            var service = DemoProxy.InvoiceService();
-            var totals = await service.GetInvoiceTotals();
+            var aggregator = DemoProxy.InvoiceAggregator("AllInvoices");            
+            var totals = await aggregator.GetInvoiceTotals();
 
             return totals;
         }
