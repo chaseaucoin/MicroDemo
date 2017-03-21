@@ -21,6 +21,10 @@ namespace InvoiceAnalytics
     [StatePersistence(StatePersistence.Persisted)]
     internal class InvoiceAnalytics : Actor, IInvoiceAggregator
     {
+        public InvoiceAnalytics(ActorService actorService, ActorId actorId) : base(actorService, actorId)
+        {
+        }
+
         public Task AddToInvoiceTotal(decimal amount)
         {
             return this.StateManager.AddOrUpdateStateAsync("InvoiceTotals", amount, (key, value) => {

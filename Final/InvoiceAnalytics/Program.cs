@@ -22,7 +22,7 @@ namespace InvoiceAnalytics
                 // For more information, see http://aka.ms/servicefabricactorsplatform
 
                 ActorRuntime.RegisterActorAsync<InvoiceAnalytics>(
-                   (context, actorType) => new ActorService(context, actorType, () => new InvoiceAnalytics())).GetAwaiter().GetResult();
+                   (context, actorType) => new ActorService(context, actorType, (service,id) => new InvoiceAnalytics(service,id))).GetAwaiter().GetResult();
 
                 Thread.Sleep(Timeout.Infinite);
             }
