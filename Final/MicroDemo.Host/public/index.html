@@ -41,7 +41,7 @@
     <script type="text/javascript" src="js/dashboard.min.js"></script>
     <script type="text/javascript">
         var app = angular.module("RDash");
-        app.value('backendServerUrl', '/');
+        app.value('backendServerUrl', '');
 
         app.factory('backendHubProxy', ['$rootScope', 'backendServerUrl',
           function ($rootScope, backendServerUrl) {
