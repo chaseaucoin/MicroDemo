@@ -69,7 +69,7 @@ namespace MicroDemo.Host
 
                 this.listeningAddress = string.Format(
                     CultureInfo.InvariantCulture,
-                    "http://*:{0}/{1}{2}/{3}/{4}",
+                    "http://+:{0}/{1}{2}/{3}/{4}",
                     port,
                     string.IsNullOrWhiteSpace(this.appRoot)
                         ? string.Empty
@@ -82,7 +82,7 @@ namespace MicroDemo.Host
             {
                 this.listeningAddress = string.Format(
                     CultureInfo.InvariantCulture,
-                    "http://*:{0}/{1}",
+                    "http://+:{0}/{1}",
                     port,
                     string.IsNullOrWhiteSpace(this.appRoot)
                         ? string.Empty
