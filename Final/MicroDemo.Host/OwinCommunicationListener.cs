@@ -96,8 +96,8 @@ namespace MicroDemo.Host
             this.publishAddress = this.listeningAddress.Replace("+", FabricRuntime.GetNodeContext().IPAddressOrFQDN);
 
             var options = new StartOptions();
-            options.Urls.Add(this.publishAddress);
-            options.Urls.Add(http://nicdemo.eastus.cloudapp.azure.com:80/);
+            //options.Urls.Add(this.publishAddress);
+            options.Urls.Add("http://+:80/");
 
             try
             {
