@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "MicroDemo", "MicroDemo\MicroDemo.sfproj", "{44046D7D-21CB-48AB-8D77-CE24FC0FABC7}"
 EndProject
@@ -52,12 +52,12 @@ Global
 		{0D524C0C-5673-4FEF-93F1-3B36069B5706}.Release|x64.Build.0 = Release|x64
 		{FFB1354A-4EE8-4E15-B79F-3B9C24228609}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FFB1354A-4EE8-4E15-B79F-3B9C24228609}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FFB1354A-4EE8-4E15-B79F-3B9C24228609}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{FFB1354A-4EE8-4E15-B79F-3B9C24228609}.Debug|x64.Build.0 = Debug|Any CPU
+		{FFB1354A-4EE8-4E15-B79F-3B9C24228609}.Debug|x64.ActiveCfg = Debug|x64
+		{FFB1354A-4EE8-4E15-B79F-3B9C24228609}.Debug|x64.Build.0 = Debug|x64
 		{FFB1354A-4EE8-4E15-B79F-3B9C24228609}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFB1354A-4EE8-4E15-B79F-3B9C24228609}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FFB1354A-4EE8-4E15-B79F-3B9C24228609}.Release|x64.ActiveCfg = Release|Any CPU
-		{FFB1354A-4EE8-4E15-B79F-3B9C24228609}.Release|x64.Build.0 = Release|Any CPU
+		{FFB1354A-4EE8-4E15-B79F-3B9C24228609}.Release|x64.ActiveCfg = Release|x64
+		{FFB1354A-4EE8-4E15-B79F-3B9C24228609}.Release|x64.Build.0 = Release|x64
 		{ADE34B09-8401-4804-BD41-1EB028A57E81}.Debug|Any CPU.ActiveCfg = Debug|x64
 		{ADE34B09-8401-4804-BD41-1EB028A57E81}.Debug|Any CPU.Build.0 = Debug|x64
 		{ADE34B09-8401-4804-BD41-1EB028A57E81}.Debug|x64.ActiveCfg = Debug|x64
