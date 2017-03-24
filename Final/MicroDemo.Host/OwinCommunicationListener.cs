@@ -94,12 +94,12 @@ namespace MicroDemo.Host
             }
 
             this.publishAddress = this.listeningAddress.Replace("+", FabricRuntime.GetNodeContext().IPAddressOrFQDN);
-
+            
             try
             {
                 this.eventSource.ServiceMessage(this.serviceContext, "Starting web server on " + this.listeningAddress);
 
-                this.webApp = WebApp.Start(this.listeningAddress, appBuilder => this.startup.Invoke(appBuilder));
+                this.webApp = WebApp.Start(this.publishAddress, appBuilder => this.startup(appBuilder));
 
                 this.eventSource.ServiceMessage(this.serviceContext, "Listening on " + this.publishAddress);
 
