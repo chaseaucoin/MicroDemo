@@ -16,6 +16,9 @@
                                     StoreName="My" />
 
   -->
-  <ClusterConnectionParameters ConnectionEndpoint="" />
+  <ClusterConnectionParameters ConnectionEndpoint="falconprodtest.eastus.cloudapp.azure.com:19000" />
   <ApplicationParameterFile Path="..\ApplicationParameters\Cloud.xml" />
+  <UpgradeDeployment Mode="UnmonitoredAuto" Enabled="false">
+    <Parameters Force="True" />
+  </UpgradeDeployment>
 </PublishProfile>
